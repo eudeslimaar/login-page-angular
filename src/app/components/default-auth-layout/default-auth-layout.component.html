@@ -6,6 +6,8 @@
     <div class="btn-wrapper">
       <button
         class="btn-primary"
+        [disabled]="disablePrimaryBtn"
+        (click)="submit()"
       >
         {{ primaryBtnText }}
       </button>
@@ -16,6 +18,7 @@
       </div>
       <button
         class="btn-secondary"
+        (click)="navigate"
       >
         {{ secondaryBtnText }}
       </button>
