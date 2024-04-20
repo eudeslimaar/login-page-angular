@@ -1,4 +1,4 @@
-import { LoginService } from './../../services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { Component } from '@angular/core';
 import {DefaultAuthLayoutComponent} from "../../components/default-auth-layout/default-auth-layout.component";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
     PrimaryInputComponent
   ],
   providers: [
-    LoginService,
+    AuthService,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -24,7 +24,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private authService: AuthService,
     private toastService: ToastrService
   ) {
     this.loginForm  = new FormGroup({
@@ -34,7 +34,7 @@ export class LoginComponent {
   }
 
   submit() {
-    this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
       next: () => this.toastService.success("Login successful!"),
       error: () => this.toastService.error("Login failed!")
     })

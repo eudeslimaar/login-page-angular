@@ -1,4 +1,4 @@
-import { LoginService } from './../../services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { Component } from '@angular/core';
 import {DefaultAuthLayoutComponent} from "../../components/default-auth-layout/default-auth-layout.component";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -22,7 +22,7 @@ interface SignupForm {
     PrimaryInputComponent
   ],
   providers: [
-    LoginService,
+    AuthService,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
@@ -31,7 +31,7 @@ export class SignupComponent {
   signupForm!: FormGroup<SignupForm>;
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private authService: AuthService,
     private toastService: ToastrService
   ) {
     this.signupForm  = new FormGroup({
@@ -43,7 +43,7 @@ export class SignupComponent {
   }
 
   submit() {
-    this.loginService.login(this.signupForm.value.email, this.signupForm.value.password).subscribe({
+    this.authService.signup(this.signupForm.value.name, this.signupForm.value.email, this.signupForm.value.password).subscribe({
       next: () => this.toastService.success("Registration successful!"),
       error: () => this.toastService.error("Registration failed!")
     })
